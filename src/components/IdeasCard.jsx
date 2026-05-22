@@ -21,7 +21,7 @@ const IdeasCard = ({ idea }) => {
         <p className="font-semibold text-[#121212bc]" >{idea.category}</p>
         <p className="flex justify-center items-center gap-1 font-medium text-[#121212e1]">{idea.author}</p>
       </div>
-      <Link href={`/ideas/${idea.id}`}><Button variant="outline" className={'w-full font-semibold animate__animated animate__bounce'} >View Details</Button></Link>
+      <Link href={`/ideas/${idea._id}`}><Button variant="outline" className={'w-full font-semibold animate__animated animate__bounce'} >View Details</Button></Link>
     </Card>
   )
 }

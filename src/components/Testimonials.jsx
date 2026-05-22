@@ -9,6 +9,7 @@ const testimonials = [
     review:
       "IdeaVault helped me validate my startup concept with meaningful community feedback and expert insights.",
   },
+
   {
     name: "David Lee",
     role: "Product Designer",
@@ -17,6 +18,7 @@ const testimonials = [
     review:
       "The platform inspired me with innovative startup ideas and valuable discussions from creators worldwide.",
   },
+
   {
     name: "Nusrat Jahan",
     role: "AI Researcher",
@@ -29,18 +31,18 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="bg-slate-950 py-20">
+    <section className="bg-white py-20 dark:bg-slate-950">
       
       <div className="mx-auto max-w-7xl px-4">
         
         {/* Section Header */}
         <div className="mb-14 text-center">
           
-          <h2 className="text-4xl font-bold text-slate-100 md:text-5xl">
+          <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
             Community Feedback
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
             Hear what innovators and creators say about
             their experience with IdeaVault.
           </p>
@@ -52,7 +54,22 @@ const Testimonials = () => {
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="group rounded-3xl border border-slate-800 bg-slate-900 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40"
+              className="
+              group
+              rounded-3xl
+              border
+              border-slate-200
+              bg-white
+              p-8
+              shadow-sm
+              transition-all
+              duration-300
+              hover:-translate-y-2
+              hover:border-indigo-500/40
+              hover:shadow-xl
+              dark:border-slate-800
+              dark:bg-slate-900
+              "
             >
               
               {/* User Info */}
@@ -61,24 +78,32 @@ const Testimonials = () => {
                 <Image
                   src={item.image}
                   alt={item.name}
-                  height={20}
-                  width={20}
-                  className="h-16 w-16 rounded-full border-2 border-slate-700 object-cover"
+                  height={64}
+                  width={64}
+                  className="
+                  h-16
+                  w-16
+                  rounded-full
+                  border-2
+                  border-slate-200
+                  object-cover
+                  dark:border-slate-700
+                  "
                 />
 
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-100">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                     {item.name}
                   </h3>
 
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     {item.role}
                   </p>
                 </div>
               </div>
 
               {/* Review */}
-              <p className="leading-7 text-slate-300">
+              <p className="leading-7 text-slate-600 dark:text-slate-300">
                 “{item.review}”
               </p>
             </div>
