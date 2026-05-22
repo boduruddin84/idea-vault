@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { IoIosBulb } from "react-icons/io";
 
 const Navbar = ({ user, logout }) => {
   const pathname = usePathname();
@@ -48,7 +49,7 @@ const Navbar = ({ user, logout }) => {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-lg font-bold text-white">
-            I
+            <IoIosBulb />
           </div>
 
           <h2 className="text-2xl font-bold text-white">IdeaVault</h2>
