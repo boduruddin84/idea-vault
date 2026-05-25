@@ -33,7 +33,7 @@ export default function SignUpPage() {
     });
 
     if (!error) {
-      router.push("/login");
+      router.push("/");
       toast.success("Registration Successful");
     } else {
       toast.error("Something went wrong");
@@ -93,9 +93,10 @@ export default function SignUpPage() {
             if (!/[A-Z]/.test(value)) {
               return "Password must contain at least one uppercase letter";
             }
-            if (!/[0-9]/.test(value)) {
-              return "Password must contain at least one number";
+            if (!/[a-z]/.test(value)) {
+              return "Password must contain at least one lowercase letter";
             }
+            
 
             return null;
           }}
@@ -103,14 +104,14 @@ export default function SignUpPage() {
           <Label>Password</Label>
           <Input placeholder="Enter your password" />
           <Description>
-            Must be at least 8 characters with 1 uppercase and 1 number
+            Must be at least 8 characters with 1 uppercase and 1 lowercase
           </Description>
           <FieldError />
         </TextField>
 
         <div className="flex gap-2">
           <Button type="submit">
-            Submit
+            Register
           </Button>
           <Button type="reset" variant="secondary">
             Reset

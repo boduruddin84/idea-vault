@@ -66,12 +66,12 @@ export default function LogInPage() {
 
         <TextField
           isRequired
-          minLength={6}
+          minLength={8}
           name="password"
           type="password"
           validate={(value) => {
-            if (value.length < 6) {
-              return "Password must be at least 6 characters";
+            if (value.length < 8) {
+              return "Password must be at least 8 characters";
             }
             if (!/[A-Z]/.test(value)) {
               return "Password must contain at least one uppercase letter";
@@ -86,7 +86,7 @@ export default function LogInPage() {
           <Label>Password</Label>
           <Input placeholder="Enter your password" />
           <Description>
-            Must be at least 6 characters with 1 uppercase and 1 lowercase
+            Must be at least 8 characters with 1 uppercase and 1 lowercase
           </Description>
           <FieldError />
         </TextField>

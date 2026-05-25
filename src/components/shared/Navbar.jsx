@@ -6,10 +6,22 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { IoIosBulb } from "react-icons/io";
+import { Avatar } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
-const Navbar = ({ user, logout }) => {
+const Navbar = () => {
   const pathname = usePathname();
+
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
+
+
   const [open, setOpen] = useState(false);
+
+  const handleLogOut = async () => {
+    await authClient.signOut();
+    toast.success("LogOut Successful");
+  }
 
   const navItemStyle = (path) =>
     pathname === path
@@ -79,13 +91,14 @@ const Navbar = ({ user, logout }) => {
           ) : (
             <div className="dropdown dropdown-end">
               <div tabIndex={0} className="cursor-pointer">
-                <Image
-                  src={user?.photoURL || "/default-user.png"}
-                  alt="user"
-                  width={44}
-                  height={44}
-                  className="rounded-full border-2 border-slate-700 object-cover"
-                />
+                <Avatar>
+                  <Avatar.Image
+                    alt={user?.name}
+                    src={user?.image}
+                    referrerPolicy="no-referrer"
+                  />
+                  <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                </Avatar>
               </div>
 
               <ul
@@ -94,18 +107,18 @@ const Navbar = ({ user, logout }) => {
               >
                 <li className="mb-2 border-b border-slate-800 pb-2">
                   <p className="font-semibold text-white">
-                    {user?.displayName}
+                    {user?.name}
                   </p>
 
                   <span className="text-xs text-slate-400">{user?.email}</span>
                 </li>
 
                 <li>
-                  <Link href="/profile">Profile Management</Link>
+                  <Link href="/profile" className="text-xs text-slate-400">Profile Management</Link>
                 </li>
 
                 <li>
-                  <button onClick={logout}>Logout</button>
+                  <button onClick={handleLogOut} className="text-xs text-slate-400 cursor-pointer">Logout</button>
                 </li>
               </ul>
             </div>
@@ -149,7 +162,7 @@ const Navbar = ({ user, logout }) => {
                   Profile Management
                 </Link>
 
-                <button onClick={logout} className="text-left text-red-400">
+                <button onClick={handleLogOut} className="text-left text-red-400 cursor-pointer">
                   Logout
                 </button>
               </>
