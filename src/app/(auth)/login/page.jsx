@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
-import { GrGoogle } from "react-icons/gr";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 export default function LogInPage() {
@@ -26,6 +26,8 @@ export default function LogInPage() {
       password,
       callbackURL: "/",
     });
+
+    const { data: tokenData } = await authClient.token()
 
     if (error) {
       toast.error("Email or Password went wrong");
@@ -109,7 +111,7 @@ export default function LogInPage() {
         variant="outline"
         className={"w-full font-semibold"}
       >
-        <GrGoogle /> Login With Google
+        <FcGoogle /> Login With Google
       </Button>
     </Card>
   );

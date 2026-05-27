@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { IoIosBulb } from "react-icons/io";
 import { Avatar } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { Bars } from "@gravity-ui/icons";
+import { Button, Dropdown } from "@heroui/react";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -15,13 +16,12 @@ const Navbar = () => {
   const userData = authClient.useSession();
   const user = userData.data?.user;
 
-
   const [open, setOpen] = useState(false);
 
   const handleLogOut = async () => {
     await authClient.signOut();
     toast.success("LogOut Successful");
-  }
+  };
 
   const navItemStyle = (path) =>
     pathname === path
@@ -89,7 +89,7 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <div className="dropdown dropdown-end">
+            <div className="flex gap-2">
               <div tabIndex={0} className="cursor-pointer">
                 <Avatar>
                   <Avatar.Image
@@ -101,26 +101,56 @@ const Navbar = () => {
                 </Avatar>
               </div>
 
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content mt-4 w-60 rounded-2xl border border-slate-800 bg-slate-900 p-3 shadow-2xl"
-              >
-                <li className="mb-2 border-b border-slate-800 pb-2">
-                  <p className="font-semibold text-white">
-                    {user?.name}
-                  </p>
+              <Dropdown>
+                <Button isIconOnly aria-label="Menu" variant="secondary">
+                  <Bars className="outline-none" />
+                </Button>
+                <Dropdown.Popover className="min-w-[220px] menu dropdown-content mt-4 w-60 rounded-2xl border border-slate-800 bg-slate-900 p-3 shadow-2xl">
+                  <Dropdown.Menu>
+                    <Dropdown.Section>
+                      <Dropdown.Item
+                        id="new-file"
+                        textValue="New file"
+                        className="hover:bg-transparent data-[hover=true]:bg-transparent">
+                        <li className="mb-2 border-b border-slate-800 pb-2">
+                          <p className="font-semibold text-white">
+                            {user?.name}
+                          </p>
 
-                  <span className="text-xs text-slate-400">{user?.email}</span>
-                </li>
+                          <span className="text-xs text-slate-400">
+                            {user?.email}
+                          </span>
+                        </li>
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        id="edit-file"
+                        textValue="Edit file"
+                        className="hover:bg-transparent data-[hover=true]:bg-transparent"
+                      >
+                        <ul>
+                          <li>
+                            <Link
+                              href="/profile"
+                              className="text-xs text-slate-400"
+                            >
+                              Profile Management
+                            </Link>
+                          </li>
 
-                <li>
-                  <Link href="/profile" className="text-xs text-slate-400">Profile Management</Link>
-                </li>
-
-                <li>
-                  <button onClick={handleLogOut} className="text-xs text-slate-400 cursor-pointer">Logout</button>
-                </li>
-              </ul>
+                          <li>
+                            <button
+                              onClick={handleLogOut}
+                              className="text-xs text-slate-400 cursor-pointer"
+                            >
+                              Logout
+                            </button>
+                          </li>
+                        </ul>
+                      </Dropdown.Item>
+                    </Dropdown.Section>
+                  </Dropdown.Menu>
+                </Dropdown.Popover>
+              </Dropdown>
             </div>
           )}
         </div>
@@ -162,7 +192,10 @@ const Navbar = () => {
                   Profile Management
                 </Link>
 
-                <button onClick={handleLogOut} className="text-left text-red-400 cursor-pointer">
+                <button
+                  onClick={handleLogOut}
+                  className="text-left text-red-400 cursor-pointer"
+                >
                   Logout
                 </button>
               </>

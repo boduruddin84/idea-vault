@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { GrGoogle } from "react-icons/gr";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 export default function SignUpPage() {
@@ -124,7 +124,7 @@ export default function SignUpPage() {
         variant="outline"
         className={"w-full font-semibold"}
       >
-        <GrGoogle /> Login With Google
+        <FcGoogle /> Login With Google
       </Button>
     </Card>
   );
