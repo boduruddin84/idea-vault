@@ -1,8 +1,13 @@
 import IdeaDetails from "@/components/IdeaDetails";
+import { auth } from "@/lib/auth";
 
 
-const fetchSingleIdea = async (id) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/ideas/${id}`);
+const fetchSingleIdea = async (id, token) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/ideas/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}` || " "
+      }
+    });
     const data = await res.json();
     return data || {};
   };
@@ -10,10 +15,11 @@ const fetchSingleIdea = async (id) => {
 
 const IdeaDetailsPage = async ({ params }) => {
 
-  
-
     const {id} = await params;
-    const idea = await fetchSingleIdea(id);
+    const { token } = await auth.api.getToken({ 
+        headers: await headers(),
+    });
+    const idea = await fetchSingleIdea(id, token);
     
 
   return (
