@@ -1,13 +1,12 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-
-
 const AddIdeaPage = () => {
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
 
   const categories = [
     "Tech",
@@ -28,37 +27,38 @@ const AddIdeaPage = () => {
 
     const ideaData = {
       title: form.title.value,
-      shortDescription:
-        form.shortDescription.value,
-      detailedDescription:
-        form.detailedDescription.value,
+      shortDescription: form.shortDescription.value,
+      detailedDescription: form.detailedDescription.value,
       category: form.category.value,
       tags: form.tags.value,
       imageURL: form.imageURL.value,
-      estimatedBudget:
-        form.estimatedBudget.value,
-      targetAudience:
-        form.targetAudience.value,
-      problemStatement:
-        form.problemStatement.value,
-      proposedSolution:
-        form.proposedSolution.value,
+      estimatedBudget: form.estimatedBudget.value,
+      targetAudience: form.targetAudience.value,
+      problemStatement: form.problemStatement.value,
+      proposedSolution: form.proposedSolution.value,
     };
 
     try {
-      console.log(ideaData);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/newIdea`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ideaData),
+      });
 
-      // Database Save Logic Here
+      const data = await res.json();
 
-      toast.success(
-        "Startup idea submitted successfully!"
-      );
+      if (data.insertedId) {
+        toast.success("Startup idea submitted successfully!");
 
-      form.reset();
+        form.reset();
+      } else {
+        toast.error("Failed to submit idea");
+      }
     } catch (error) {
-      toast.error(
-        "Failed to submit idea"
-      );
+      toast.error("Something went wrong");
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -66,21 +66,16 @@ const AddIdeaPage = () => {
 
   return (
     <section className="min-h-screen bg-slate-50 py-16 dark:bg-slate-950">
-      
       <div className="mx-auto max-w-5xl px-4">
-        
         {/* Header */}
         <div className="mb-12 text-center">
-          
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white md:text-5xl">
             Submit Your Startup Idea
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-slate-600 dark:text-slate-400">
-            Share innovative ideas with the
-            community and get valuable
-            feedback from creators and
-            entrepreneurs.
+            Share innovative ideas with the community and get valuable feedback
+            from creators and entrepreneurs.
           </p>
         </div>
 
@@ -98,12 +93,9 @@ const AddIdeaPage = () => {
           dark:bg-slate-900
           "
         >
-          
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            
             {/* Idea Title */}
             <div className="md:col-span-2">
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Idea Title
               </label>
@@ -134,7 +126,6 @@ const AddIdeaPage = () => {
 
             {/* Short Description */}
             <div className="md:col-span-2">
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Short Description
               </label>
@@ -165,7 +156,6 @@ const AddIdeaPage = () => {
 
             {/* Detailed Description */}
             <div className="md:col-span-2">
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Detailed Description
               </label>
@@ -196,7 +186,6 @@ const AddIdeaPage = () => {
 
             {/* Category */}
             <div>
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Category
               </label>
@@ -220,26 +209,18 @@ const AddIdeaPage = () => {
                 dark:text-white
                 "
               >
-                <option value="">
-                  Select Category
-                </option>
+                <option value="">Select Category</option>
 
-                {categories.map(
-                  (category, index) => (
-                    <option
-                      key={index}
-                      value={category}
-                    >
-                      {category}
-                    </option>
-                  )
-                )}
+                {categories.map((category, index) => (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
             </div>
 
             {/* Tags */}
             <div>
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Tags (Optional)
               </label>
@@ -268,7 +249,6 @@ const AddIdeaPage = () => {
 
             {/* Image URL */}
             <div>
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Image URL
               </label>
@@ -298,7 +278,6 @@ const AddIdeaPage = () => {
 
             {/* Budget */}
             <div>
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Estimated Budget (Optional)
               </label>
@@ -327,7 +306,6 @@ const AddIdeaPage = () => {
 
             {/* Target Audience */}
             <div className="md:col-span-2">
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Target Audience
               </label>
@@ -357,7 +335,6 @@ const AddIdeaPage = () => {
 
             {/* Problem Statement */}
             <div className="md:col-span-2">
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Problem Statement
               </label>
@@ -387,7 +364,6 @@ const AddIdeaPage = () => {
 
             {/* Proposed Solution */}
             <div className="md:col-span-2">
-              
               <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Proposed Solution
               </label>
@@ -435,9 +411,7 @@ const AddIdeaPage = () => {
             disabled:opacity-70
             "
           >
-            {loading
-              ? "Submitting..."
-              : "Submit Startup Idea"}
+            {loading ? "Submitting..." : "Submit Startup Idea"}
           </button>
         </form>
       </div>
