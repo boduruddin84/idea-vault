@@ -1,6 +1,7 @@
 import IdeasCard from "@/components/IdeasCard";
 import { fetchTrendingIdeas } from "@/lib/ideas/data";
 
+export const dynamic = 'force-dynamic';
 
 const TrendingIdeasPage = async () => {
 
