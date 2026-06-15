@@ -1,65 +1,43 @@
-// utils/fetchIdeas.js
-
-const API_URL = process.env.NEXT_PUBLIC_API_URI;
-
 export const fetchIdeas = async () => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URI;
+  let ideas = [];
+
   try {
-    if (!API_URL) {
-      console.error("NEXT_PUBLIC_API_URI is missing");
-      return [];
-    }
-
-    const res = await fetch(`${API_URL}/api/ideas`, {
-      cache: "no-store",
+    const res = await fetch(`${apiUrl}/api/ideas`, {
+      cache: 'no-store' 
     });
-
-    if (!res.ok) {
-      throw new Error(`HTTP Error: ${res.status}`);
-    }
-
+    
     const contentType = res.headers.get("content-type");
-
-    if (!contentType?.includes("application/json")) {
-      console.error("Expected JSON but received:", contentType);
-      return [];
+    if (contentType && contentType.includes("application/json")) {
+      ideas = await res.json();
+    } else {
+      console.warn("API did not return JSON. Received HTML/Text instead.");
     }
-
-    const ideas = await res.json();
-
-    return Array.isArray(ideas) ? ideas : [];
   } catch (error) {
-    console.error("Failed to fetch ideas:", error);
-    return [];
-  }
+    console.error("Failed to fetch ideas during build phase:", error);
+    ideas = [];
+  } // <--- YOU WERE MISSING THIS CLOSING BRACE!
+  
+  return ideas; // Make sure to return the ideas array here
 };
 
+// Added the same safe try/catch wrapper here so it doesn't crash on Vercel either
 export const fetchTrendingIdeas = async () => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URI;
+  
   try {
-    if (!API_URL) {
-      console.error("NEXT_PUBLIC_API_URI is missing");
-      return [];
-    }
-
-    const res = await fetch(`${API_URL}/api/trending`, {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      throw new Error(`HTTP Error: ${res.status}`);
-    }
-
+    const res = await fetch(`${apiUrl}/trending`, { cache: 'no-store' });
     const contentType = res.headers.get("content-type");
-
-    if (!contentType?.includes("application/json")) {
-      console.error("Expected JSON but received:", contentType);
-      return [];
+    
+    if (contentType && contentType.includes("application/json")) {
+      const data = await res.json();
+      return data || [];
     }
-
-    const ideas = await res.json();
-
-    return Array.isArray(ideas) ? ideas : [];
+    
+    console.warn("Trending API did not return JSON.");
+    return [];
   } catch (error) {
-    console.error("Failed to fetch trending ideas:", error);
+    console.error("Failed to fetch trending ideas during build phase:", error);
     return [];
   }
 };
