@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 const fetchSingleIdea = async (id, token) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/ideas/${id}`, {
       headers: {
-        authorization: `Bearer ${token}` || " "
+        authorization: `Bearer ${token}`
       }
     });
     const data = await res.json();

@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 IdeaVault – Startup Idea Sharing Platform
 
-## Getting Started
+## 🌐 Live Website
 
-First, run the development server:
+🔗 **Live Site:** https://idea-vault-tau-self.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📌 Project Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+IdeaVault is a web-based startup idea sharing platform where innovators can publish creative startup ideas, explore ideas from others, and engage through comments and discussions. The platform encourages collaboration, validation, and refinement of startup concepts through community interaction.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Features
 
-## Learn More
+* 🔐 Secure authentication with Email/Password and Google Login using Better Auth & JWT.
+* 💡 Users can add, update, and delete their own startup ideas.
+* 💬 Interactive comment system with add, edit, and delete functionality.
+* 📈 Trending Ideas section showcasing the most popular startup concepts.
+* 🔍 Powerful search and category filtering for discovering ideas easily.
+* 👤 User profile management with personalized dashboard.
+* 📱 Fully responsive design optimized for mobile, tablet, and desktop devices.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Frontend
 
-## Deploy on Vercel
+* Next.js 16
+* React 19
+* Tailwind CSS 4
+* HeroUI
+* Next Themes
+* React Toastify
+* Swiper.js
+* Framer Motion
+* Lucide React
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Backend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Node.js
+* Express.js
+* MongoDB
+* Better Auth
+* JWT Authentication
+
+---
+
+## 🔑 Core Functionalities
+
+### Public Routes
+
+* Home Page
+* Ideas Page
+* Trending Ideas
+* Login & Registration
+
+### Private Routes
+
+* Add Idea
+* My Ideas
+* My Interactions
+* Idea Details
+* Profile Management
+
+
+
+---
+
+## 📂 GitHub Repositories
+
+### Client Side
+
+🔗 https://idea-vault-tau-self.vercel.app
+
+### Server Side
+
+🔗 https://idea-vault-server-t5bq.onrender.com
+
+---
+
+## 👨‍💻 Developer
+
+**Boduruddin**
+
+
