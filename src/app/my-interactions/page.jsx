@@ -47,7 +47,7 @@ const MyInteractionsPage = () => {
             </p>
 
             <p className="italic">
-              "{item.comment}"
+              `{item.comment}`
             </p>
 
             <p className="mt-3 text-sm text-gray-500">
