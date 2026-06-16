@@ -3,7 +3,7 @@ export const fetchIdeas = async () => {
   let ideas = [];
 
   try {
-    const res = await fetch(`${apiUrl}/api/ideas`, {
+    const res = await fetch(`${apiUrl}/ideas`, {
       cache: 'no-store' 
     });
     
