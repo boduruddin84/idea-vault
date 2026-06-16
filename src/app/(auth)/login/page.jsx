@@ -29,11 +29,10 @@ export default function LogInPage() {
 
     const { data: tokenData } = await authClient.token()
 
+    toast.success("Login Successful");
+    
     if (error) {
       toast.error("Email or Password went wrong");
-    }
-    else {
-      toast.success("Login Successful");
     }
   };
 
